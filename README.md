@@ -6,7 +6,8 @@
 
 
 ## startup
-1. install sql on local: 
+1. install sql on local:
+   > (If apple silicon) dockerDesktop > settings > features in development > Use Rosetta for x86/amd64 emulation on Apple Silicon
     ```shell
     sudo docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=Admin123' -p 1433:1433 --name azuresqledge -d mcr.microsoft.com/azure-sql-edge
     ```
