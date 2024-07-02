@@ -1,0 +1,25 @@
+name: Dependabot PR
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  send_diff:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Verify Dependabot
+      if: github.actor == 'dependabot[bot]'
+      run: echo "PR created by Dependabot"
+
+    - name: Send Diff
+      if: github.actor == 'dependabot[bot]'
+      run: |
+        PR_DIFF=$(gh pr diff ${{ github.event.pull_request.number }})
+        curl -X POST -H "Content-Type: text/plain" -d "$PR_DIFF" https://www.example.aifua.com
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
